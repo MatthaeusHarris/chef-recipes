@@ -9,7 +9,7 @@ define :railssite, :site_options => {} do
     docroot "/home/#{site_options[:user]}/app/current/public"
     template t
     server_name site_options[:server_name]
-    server_aliases [ site_options[:name], site_options[:hostname] ]
+    server_aliases [ params[:name], node[:hostname] ]
     rails_env "production"
     ssl site_options[:ssl]
     certificatechainfile site_options[:certificatechainfile]
@@ -39,5 +39,6 @@ define :railssite, :site_options => {} do
     owner site_options[:user]
     group site_options[:user]
     mode "0664"
+    variables ( { :dbname => site_options[:dbname], :dbuser => site_options[:dbuser], :dbpasswd => site_options[:dbpasswd], :dbhost => site_options[:dbhost] } )
   end
 end

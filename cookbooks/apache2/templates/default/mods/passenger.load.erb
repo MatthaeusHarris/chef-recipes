@@ -1,1 +1,5 @@
-LoadModule passenger_module "<%= @node[:passenger][:passengerroot] %>/ext/apache2/mod_passenger.so"
+<% if @node[:passenger][:install_binary] != nil %>
+   LoadModule passenger_module "<%= @node[:passenger][:passengerroot] %>/ext/apache2/mod_passenger.so"
+<% else %>
+   LoadModule passenger_module /usr/lib/apache2/modules/mod_passenger.so
+<% end %>

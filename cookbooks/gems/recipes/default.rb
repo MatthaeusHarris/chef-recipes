@@ -19,7 +19,7 @@
 
 include_recipe 'gems::gem_dependencies'
 
-packages = %w{ }
+packages = %w{ mysql }
 
 packages.each do |p|
   gem_package p do

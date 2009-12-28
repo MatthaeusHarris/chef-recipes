@@ -16,12 +16,16 @@ else
   default[:passenger][:passengermaxpoolsize]="62"
 end
 
-
 if File.exists?(ree[:path]) && File.directory?(ree[:path])
   default[:passenger][:passengerroot]= "#{ree[:path]}/lib/ruby/gems/1.8/gems/passenger-#{passenger[:version]}"
   default[:passenger][:passengerruby]= "#{ree[:path]}/bin/ruby"
   default[:passenger][:gem_path] = ree[:gem_path]
   default[:passenger][:install_binary]="#{ree[:path]}/bin/passenger-install-apache2-module"
+elsif platform.eql?("ubuntu") && platform_version.eql?("8.04") && languages[:ruby][:target_cpu].eql?("i486")
+  default[:passenger][:passengerroot]="/usr/"
+  default[:passenger][:passengerruby]="/usr/bin/ruby"
+  default[:passenger][:gem_path] = "/usr/bin/gem"
+  default[:passenger][:install_binary]=nil
 else
   default[:passenger][:passengerroot]="/usr/lib/ruby/gems/1.8/passenger-#{passenger[:version]}"
   default[:passenger][:passengerruby]="/usr/bin/ruby"
