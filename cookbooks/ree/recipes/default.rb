@@ -44,6 +44,7 @@ include_recipe 'ree::ree_deps'
     link "/opt/ruby" do
       to node[:ree][:path]
       link_type :symbolic
+      not_if "test -L /opt/ruby"
     end
   end
 end
