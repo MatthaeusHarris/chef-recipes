@@ -1,0 +1,62 @@
+{
+  "providing": {
+    "ruby": [
+
+    ],
+    "ruby::ruby_deps": [
+
+    ],
+    "ruby::gems": [
+
+    ]
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "ubuntu": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures ruby",
+  "version": "0.1.0",
+  "dependencies": {
+    "apt": [
+
+    ]
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "name": "ruby",
+  "recipes": {
+    "ruby::ruby_deps": "",
+    "ruby": "",
+    "ruby::gems": ""
+  },
+  "conflicting": {
+
+  }
+}

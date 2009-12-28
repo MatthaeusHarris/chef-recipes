@@ -1,0 +1,43 @@
+{
+  "providing": {
+    "users": [
+
+    ]
+  },
+  "platforms": {
+
+  },
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "long_description": "",
+  "description": "A fabulous new cookbook",
+  "version": "0.0.0",
+  "dependencies": {
+    "sudo": [
+
+    ],
+    "ssh_keys": [
+
+    ]
+  },
+  "maintainer": "Your Name",
+  "recommendations": {
+
+  },
+  "maintainer_email": "youremail@example.com",
+  "suggestions": {
+
+  },
+  "license": "Apache v2.0",
+  "name": "users",
+  "recipes": {
+    "users": ""
+  },
+  "conflicting": {
+
+  }
+}

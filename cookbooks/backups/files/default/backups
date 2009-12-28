@@ -1,0 +1,124 @@
+#!/usr/bin/env ruby
+# Backup Script
+# Requires duplicity, python-boto, s3cmd
+
+# Ruby Requires
+require 'rubygems'
+require 'fileutils'
+
+# Configuration
+config_file='/etc/backups/backups.yml'
+
+# Aux procedures
+def load_config(file)
+  return YAML.load_file(file)
+end
+
+def make_dir(path,user)
+  unless File.directory?(path)
+    FileUtils.mkdir_p(path)
+    FileUtils.chown(user,user,path)
+  end
+end
+
+# Db backup
+def db_backup(config)
+  local_backup_path=config['local_backup_path']
+  mysql_user=config['mysql_user']
+  mysql_pass=config['mysql_pass']
+  date = Time.now.strftime("%j-%d-%b-%Y").to_s
+  latest="latest.gz"
+
+  if config['databases'].kind_of? Array
+    config['databases'].each do |project_dbs|
+      project_dbs.each do |project, dbs|
+        dumps_dir=local_backup_path + "/projects/#{project}/dbdumps"
+        dbs.each do |db|
+          dbdumps_dir=dumps_dir + "/#{db}"
+          make_dir(dbdumps_dir,project)
+          Dir.chdir(dbdumps_dir)
+          mysql_command="mysqldump -u #{mysql_user} -p#{mysql_pass} #{db} | gzip > #{latest}"
+          mysql_result=`#{mysql_command}`
+          puts mysql_result
+          FileUtils.chown(project,project,latest)
+          FileUtils.cp(latest,"#{date}.gz")
+          s3_put_command="s3cmd -c /etc/s3cfg put #{date}.gz s3://#{$s3_backup_bucket}/projects/#{project}/dbdumps/#{db}/#{date}.gz"
+          s3_result=`#{s3_put_command}`
+          puts s3_result
+          FileUtils.rm("#{date}.gz")
+        end
+      end
+    end
+  end
+end
+
+def dir_backup(config)
+
+  if config['dirs'].kind_of? Array
+    config['dirs'].each do |project_dirs|
+      project_dirs.each do |project, dirs|
+        files_home_path=config['local_backup_path']+"/projects/#{project}/files"
+        make_dir(files_home_path,project)
+        if dirs.kind_of? Array
+          dirs.each do |dir|
+            last_dir=dir.split('/').last
+            files_backup_path="#{files_home_path}/#{last_dir}"
+            s3_backup_path="#{$s3_backup_bucket}/projects/#{project}/files/#{last_dir}"
+            make_dir(files_backup_path,project)
+            duplicity_local_command=config['duplicity_command'] + "--allow-source-mismatch " + "#{dir} file:///#{files_backup_path}"
+            duplicity_remote_command=config['duplicity_command'] + "--allow-source-mismatch " + "#{dir} s3+http://#{s3_backup_path}"
+            duplicity_local_result=`#{duplicity_local_command}`
+            puts duplicity_local_result
+            FileUtils.chown_R(project,project,files_home_path)
+            duplicity_remote_result=`#{duplicity_remote_command}`
+            puts duplicity_remote_result
+          end
+        end
+      end
+    end
+  end
+end
+
+def log_backup(config)
+  date = ((Time.now) - (60*60*24)).strftime("%j-%d-%b-%Y").to_s #each day we copy a log 1 day old
+
+  if config['logs'].kind_of? Array
+    config['logs'].each do |project_logs|
+      project_logs.each do |project, logs|
+        logs_path=config['local_backup_path']+"/projects/#{project}/logs"
+        web_logs_path=logs_path+"/web"
+        app_logs_path=logs_path+"/app"
+        logs.each do |log|
+          log_name=log.split('/').last.split('.').first
+          if log.include?("/var/log/apache2")
+            s3_put_command="s3cmd -c /etc/s3cfg put #{log}.1.gz s3://#{$s3_backup_bucket}/projects/#{project}/logs/web/#{log_name}/#{date}.gz"
+          else
+            s3_put_command="s3cmd -c /etc/s3cfg put #{log}.1.gz s3://#{$s3_backup_bucket}/projects/#{project}/logs/app/#{log_name}/#{date}.gz"
+          end
+          s3_result=`#{s3_put_command}`
+          puts s3_result
+        end
+      end
+    end
+  end
+end
+# Main Procedure
+
+# Loading config
+config=load_config(config_file)
+
+
+
+# Exporting keys for duplicity
+ENV['AWS_ACCESS_KEY_ID']=config['aws_access_key_id']
+ENV['AWS_SECRET_ACCESS_KEY']=config['aws_secret_access_key']
+ENV['PASSPHRASE']=config['passphrase']
+
+$s3_backup_bucket=config['s3_backup_bucket']
+$s3_backup_parent=config['s3_backup_parent']
+
+# Procedures
+
+db_backup(config)
+dir_backup(config)
+log_backup(config)

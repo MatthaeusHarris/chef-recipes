@@ -1,0 +1,43 @@
+{
+  "providing": {
+    "sudo": [
+
+    ]
+  },
+  "platforms": {
+
+  },
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "long_description": "",
+  "description": "Configures sudo",
+  "version": "0.1.0",
+  "dependencies": {
+    "apt": [
+
+    ],
+    "users": [
+
+    ]
+  },
+  "maintainer": "37signals",
+  "recommendations": {
+
+  },
+  "maintainer_email": "sysadmins@37signals.com",
+  "suggestions": {
+
+  },
+  "license": "Apache v2.0",
+  "name": "sudo",
+  "recipes": {
+    "sudo": ""
+  },
+  "conflicting": {
+
+  }
+}

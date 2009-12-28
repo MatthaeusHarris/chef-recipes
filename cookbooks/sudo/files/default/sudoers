@@ -1,0 +1,8 @@
+# /etc/sudoers
+
+Defaults        !env_reset
+Defaults  env_keep += "PATH"
+
+# User privilege specification
+root    ALL=(ALL) ALL
+%admin  ALL=(ALL) ALL

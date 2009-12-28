@@ -1,0 +1,40 @@
+{
+  "providing": {
+    "backups": [
+
+    ]
+  },
+  "platforms": {
+
+  },
+  "attributes": {
+
+  },
+  "replacing": {
+
+  },
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES: \n\n= USAGE:\n\n",
+  "description": "Installs\/Configures backups",
+  "version": "0.1.0",
+  "dependencies": {
+    "apt": [
+
+    ]
+  },
+  "maintainer": "Example Com",
+  "recommendations": {
+
+  },
+  "maintainer_email": "ops@example.com",
+  "suggestions": {
+
+  },
+  "license": "Apache 2.0",
+  "name": "backups",
+  "recipes": {
+    "backups": ""
+  },
+  "conflicting": {
+
+  }
+}

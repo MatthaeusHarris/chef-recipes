@@ -1,0 +1,7 @@
+production:
+  encoding: utf8
+  adapter: mysql
+  database: <%= @node[:railssite][:dbname] %>
+  username: <%= @node[:railssite][:dbuser] %>
+  password: <%= @node[:railssite][:dbpasswd] %>
+  host:     <%= @node[:railssite][:dbhost] %>

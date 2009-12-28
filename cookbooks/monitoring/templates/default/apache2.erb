@@ -1,0 +1,7 @@
+check process apache with pidfile /var/run/apache2.pid
+  start program = "/etc/init.d/apache2 start"
+  stop program  = "/etc/init.d/apache2 stop"
+  if totalmem >  <%= @node[:monit][:apache][:memory] %> for 4 cycles then restart
+  if cpu > 80% for 5 cycles then restart
+  if loadavg(1min) greater than 6 for 4 cycles then restart
+  group server
