@@ -1,0 +1,8 @@
+set alert notifications@bebanjo.com
+ mail-format {
+   from: monit@$HOST
+   subject: $SERVICE $EVENT at $DATE
+   message: Monit $ACTION $SERVICE at $DATE on $HOST: $DESCRIPTION.
+            Yours sincerely,
+            monit
+ }

@@ -1,0 +1,16 @@
+local_backup_path : /var/opt/backups
+mysql_user           : jorgesancha
+mysql_pass           : waduswadus
+aws_access_key_id    : waduswaduswadus
+aws_secret_access_key: waduswaduswadus
+passphrase           : XXXXXX
+s3_backup_bucket     : bebanjo_backups
+s3_backup_parent     : projects
+duplicity_command    : "duplicity --no-encryption " #Last space is necessary
+
+databases:
+
+dirs: 
+
+logs: 
+  
