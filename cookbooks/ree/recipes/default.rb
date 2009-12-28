@@ -37,7 +37,7 @@ include_recipe 'ree::ree_deps'
       code <<-EOH
     tar -xvf #{node[:ree][:tar_file]}
     cd  #{node[:ree][:version]}
-    ./installer --dont-install-useful-gems --auto #{node[:ree][:path]}
+    ./installer #{node[:ree][:configure_options]}
     EOH
     end
 
