@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-if not File.exists?(node[:sphinx][:path]) || (File.exists?(node[:sphinx][:path]) && !File.directory?(node[:sphinx][:path]))
+if not File.exists?(node[:sphinx][:path])
   directory node[:sphinx][:src_path] do
     owner "root"
     group "root"
@@ -52,5 +52,6 @@ if not File.exists?(node[:sphinx][:path]) || (File.exists?(node[:sphinx][:path])
     link "/opt/sphinx" do
       to node[:sphinx][:path]
       link_type :symbolic
+    not_if "test -L /opt/sphinx"
   end
 end
