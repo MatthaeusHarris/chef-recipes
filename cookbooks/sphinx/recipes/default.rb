@@ -48,10 +48,4 @@ if not File.exists?(node[:sphinx][:path])
     make install
     EOH
     end
-
-    link "/opt/sphinx" do
-      to node[:sphinx][:path]
-      link_type :symbolic
-    not_if "test -L /opt/sphinx"
-  end
 end
