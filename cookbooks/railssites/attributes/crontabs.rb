@@ -1,4 +1,4 @@
-# default[:crontabs][:mailto]="notifications@bebanjo.net"
+# default[:crontabs][:mailto]="ballsbreaking@bebanjo.net"
 # default[:crontabs][:path]="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 # default[:crontabs][:shell]="/bin/sh"
 

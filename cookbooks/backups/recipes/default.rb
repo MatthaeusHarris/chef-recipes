@@ -69,7 +69,7 @@ cron "backups" do
   minute "00"
   user "root"
   command "/usr/local/sbin/backups"
-  mailto "notifications@bebanjo.net"
+  mailto "ballsbreaking@bebanjo.net"
   path "/usr/local/bin:/usr/bin:/bin"
 end
 

@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt
-EMAIL=notifications@bebanjo.net
+EMAIL=ballsbreaking@bebanjo.net
 
 # m h dom mon dow user  command
 
