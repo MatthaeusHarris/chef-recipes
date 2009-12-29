@@ -41,4 +41,7 @@ define :railssite, :site_options => {} do
     mode "0664"
     variables ( { :dbname => site_options[:dbname], :dbuser => site_options[:dbuser], :dbpasswd => site_options[:dbpasswd], :dbhost => site_options[:dbhost] } )
   end
+
+#  include_recipe "railssites::crontabs" if site_options[:crontabs]
+
 end

@@ -1,0 +1,15 @@
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt
+EMAIL=notifications@bebanjo.net
+
+# m h dom mon dow user  command
+
+10,40 * * * *   sequence  cd /var/www/apps/tsa/current; RAILS_ENV=production rake backup_fu:all; cd /var/www/apps/tsa/current/tmp/backup; rm $(ls -t | tail -n +21) >> /var/www/apps/tsa/backup/backup.log
+
+10 1    * * *   sequence  cd /var/www/apps/tsa/current; RAILS_ENV=production rake tmp:cache:clear >> /var/www/apps/tsa/current/log/cache_clear.log
+
+0 4     * * 1   sequence  cd /var/www/apps/tsa/current; RAILS_ENV=production rake nimble:weekly_digest >> /var/www/apps/tsa/current/log/weekly_digest.log
+
+*  *    * * *   sequence  indexer --config /var/www/apps/tsa/current/config/production.sphinx.conf --all --rotate > /dev/null
+@reboot         sequence  cd /var/www/apps/tsa/current && RAILS_ENV=production rails ts:in ts:start
+@reboot         sequence  cd /var/www/apps/tsa/current && RAILS_ENV=production script/job_runner start 0; RAILS_ENV=production script/job_runner start 1
