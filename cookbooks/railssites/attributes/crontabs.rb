@@ -1,4 +1,4 @@
-# set[:crontabs][:mailto]="ballsbreaking@bebanjo.net"
+# set[:crontabs][:mailto]="ballsbreaking@bebanjo.com"
 # set[:crontabs][:path]="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 # set[:crontabs][:shell]="/bin/sh"
 

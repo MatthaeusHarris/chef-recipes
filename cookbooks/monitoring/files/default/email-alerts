@@ -1,4 +1,4 @@
-set alert ballsbreaking@bebanjo.net
+set alert ballsbreaking@bebanjo.com
  mail-format {
    from: monit@$HOST
    subject: $SERVICE $EVENT at $DATE
