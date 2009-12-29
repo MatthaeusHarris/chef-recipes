@@ -20,7 +20,7 @@ end
 
 node[:railssites].each do |appname,params|
   remote_file "/etc/cron.d/#{appname}" do
-    source appname
+    source "#{appname}.crontab"
     owner "root"
     group "root"
     mode "0644"
