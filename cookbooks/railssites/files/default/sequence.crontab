@@ -9,4 +9,4 @@ EMAIL=ballsbreaking@bebanjo.com
 0 4     * * 1   sequence  cd ~/app/current; RAILS_ENV=production rake nimble:weekly_digest >> ~/app/current/log/weekly_digest.log
 *  *    * * *   sequence  indexer --config ~/app/current/config/production.sphinx.conf --all --rotate > /dev/null
 @reboot         sequence  cd ~/app/current && RAILS_ENV=production rake ts:in ts:start
-@reboot         sequence  cd ~/app/current && RAILS_ENV=production script/job_runner start 0; RAILS_ENV=production script/job_runner start 1
+@reboot         sequence  cd ~/app/current && RAILS_ENV=production script/job_runner start 0
