@@ -1,0 +1,9 @@
+# crontab placeholder
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt
+MAILTO=wadus@wadus.net
+RAILS_ENV=production
+
+# m h dom mon dow user  command
+

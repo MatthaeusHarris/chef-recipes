@@ -1,24 +1,24 @@
-set[:railssites][:movida] = { 
-  :server_name => "movida.bebanjo.net", 
-  :user => "movida", 
-  :dbname => "jorgesancha_movida_production", 
-  :dbuser => "jorgesancha", 
-  :dbpasswd => "wvwbrrp7zyjr", 
-  :dbhost => "sqlreadwrite.brightbox.net", 
-  :ssl => true, 
-  :certificatechainfile => true, 
-  :config_files => %w( backup_fu.yml config.yml ) 
+set[:railssites][:app1] = {
+  :server_name => "app1.wadus.net",
+  :user => "app1",
+  :dbname => "app1_production",
+  :dbuser => "app1",
+  :dbpasswd => "XXXXXXXXXX",
+  :dbhost => "dbserver.wadus.net",
+  :ssl => true,
+  :certificatechainfile => true,
+  :config_files => %w(config.yml )
 }
 
-set[:railssites][:sequence] = { 
-  :server_name => "sequence.bebanjo.net", 
-  :user => "sequence", 
-  :dbname => "jorgesancha_sequence_production", 
-  :dbuser => "jorgesancha", 
-  :dbpasswd => "wvwbrrp7zyjr", 
-  :dbhost => "sqlreadwrite.brightbox.net", 
-  :ssl => true, 
-  :certificatechainfile => true, 
-  :crontabs => true, 
-  :config_files => %w( backup_fu.yml config.yml sphinx.yml ) 
+set[:railssites][:sequence] = {
+  :server_name => "app2.wadus.net",
+  :user => "app2",
+  :dbname => "app2_production",
+  :dbuser => "app2",
+  :dbpasswd => "XXXXXXXXXXXX",
+  :dbhost => "dbserver.wadus.net",
+  :ssl => true,
+  :certificatechainfile => true,
+  :crontabs => true,
+  :config_files => %w( config.yml )
 }

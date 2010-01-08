@@ -1,8 +1,18 @@
 = DESCRIPTION:
 
+This recipe install some default gems and it's library dependencies (if needed). 
+It's designed to detect an instalation of Ruby Enterprise and use this path to
+install the gems.
+
 = REQUIREMENTS:
+
+This recipe works in Ubuntu/Debian, requires ruby/ree.
 
 = ATTRIBUTES: 
 
+Just the binary path, that the recipe tries to autodetect. 
+You should add the gems and dependencies you want to install. 
+
 = USAGE:
 
+Include the recipe to install gems and dependencies.

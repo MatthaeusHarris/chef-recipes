@@ -1,8 +1,25 @@
 = DESCRIPTION:
 
+This recipe install backups infraestructure on the machine. 
+Backups infraestructure is based on s3 and some programs (s3cmd, duplicity) 
+that  copy files, dumps and logs to it through a shell script that is being 
+runned in cron.
+
 = REQUIREMENTS:
+
+Ruby installed on the machine since the script uses ruby.
 
 = ATTRIBUTES: 
 
+Nothing special.
+
 = USAGE:
 
+Include the recipe to install s3cmd and duplicity, it also install backups 
+script that has an yml configuration file that you should use on per machine
+basis (see http://wiki.opscode.com/display/chef/Files#Files-FileSpecificity).
+
+You also have to configure s3cfg template so it contains s3 configuration for
+s3cmd. See files/default/s3cfg.
+
+The recipe installs a cronjob that runs the backup script daily.

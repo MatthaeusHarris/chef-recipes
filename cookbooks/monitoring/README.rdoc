@@ -1,8 +1,29 @@
 = DESCRIPTION:
 
+Recipe that installs and configures some monitoring services, actually monit and munin. 
+It configures both munin-nodes and munin master.
+
 = REQUIREMENTS:
+
+No special requirements.
 
 = ATTRIBUTES: 
 
+For munin: 
+
+* muninmaster address so we can create munin nodes configuration 
+
 = USAGE:
 
+Include monitoring recipe to add monit support with some default configurations:
+* disk-space 
+* notification settings
+* apache2
+
+Include munin recipe to add munin support with some extra plugins:
+
+* passenger memory stats
+* passenger stats
+
+Munin recipe also enables some interesting but not enabled by default
+plugins, it also disables some plugins that I think are not useful at all.

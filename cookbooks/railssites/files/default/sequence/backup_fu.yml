@@ -1,8 +1,0 @@
-production:
-  app_name: sequence_production
-  s3_bucket: bebanjo_backups
-  aws_access_key_id: 1Q76NKSZK33312CFVQ82
-  aws_secret_access_key: ttf5xoucDfv1yHbP1YKkS5Q9a2+PFMrTYoRND051
-  static_paths: "public/static"
-  verbose: true
-  mysqldump_options: --single-transaction --complete-insert --skip-extended-insert

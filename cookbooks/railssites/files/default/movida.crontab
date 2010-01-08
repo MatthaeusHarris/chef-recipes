@@ -1,8 +1,0 @@
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt
-EMAIL=ballsbreaking@bebanjo.com
-
-# m h dom mon dow user  command
-
-25,55 * * * *   movida  cd ~/app/current; RAILS_ENV=production rake backup_fu:all; cd ~/app/current/tmp/backup; rm $(ls -t | tail -n +21) >> ~/app/current/log/backup.log
-@reboot         movida  cd ~/app/current && RAILS_ENV=production script/delayed_job start -n 1
