@@ -41,6 +41,13 @@ remote_file "/etc/denyhosts.conf" do
     group "root"
 end
 
+remote_file "/etc/ssh/sshd_config" do
+  source "sshd_config"
+  mode "0644"
+  owner "root"
+  group "root"
+end
+
 service "denyhosts" do
 # By default, the init provider is used, which runs /etc/init.d/service_name with _command.
   supports :restart => true, :reload => true
