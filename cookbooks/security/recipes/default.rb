@@ -26,6 +26,14 @@ packages.each do |p|
   end
 end
 
+service "denyhosts" do
+  supports :restart => true
+end
+
+service "sshd" do
+  supports :reload => true
+end
+
 remote_file "/usr/local/sbin/unban-ip" do
   source "unban-ip"
   mode "0755"
@@ -39,6 +47,7 @@ remote_file "/etc/denyhosts.conf" do
     mode "0644"
     owner "root"
     group "root"
+  notifies :restart, resources(:service => "sshd")
 end
 
 remote_file "/etc/ssh/sshd_config" do
@@ -46,6 +55,7 @@ remote_file "/etc/ssh/sshd_config" do
   mode "0644"
   owner "root"
   group "root"
+  notifies :reload, resources(:service => "sshd")
 end
 
 service "denyhosts" do
