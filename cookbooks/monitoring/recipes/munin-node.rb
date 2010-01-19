@@ -3,11 +3,19 @@ package "munin-node" do
   action :install
 end
 
+
+service "munin-node" do
+  # By default, the init provider is used, which runs /etc/init.d/service_name with _command.
+  supports :restart => true, :reload => true
+  action :restart
+end
+
 template "/etc/munin/munin-node.conf" do
   source "munin-node.erb"
   mode "0644"
   owner "root"
   group "root"
+  notifies :restart, resources(:service => "munin-node")
 end
 
 extra = %w{ passenger_memory passenger_stats }
@@ -27,6 +35,7 @@ plugins.each do |p|
   link "/etc/munin/plugins/#{p}" do
     to "/usr/share/munin/plugins/#{p}"
     link_type :symbolic
+    notifies :restart, resources(:service => "munin-node")
   end
 end
 
@@ -34,12 +43,7 @@ uninstall.each do |p|
   link "/etc/munin/plugins/#{p}" do
     action :delete
     only_if "test -f /etc/munin/plugins/#{p}"
+    notifies :restart, resources(:service => "munin-node")
   end
-end
-
-service "munin-node" do
-  # By default, the init provider is used, which runs /etc/init.d/service_name with _command.
-  supports :restart => true, :reload => true
-  action :restart
 end
 
