@@ -1,1 +1,1 @@
-default[:monitoring][:muninmaster]="^99\.99\.99\.99$"
+set[:monitoring][:muninmaster]="^99\.99\.99\.99$"
