@@ -35,6 +35,7 @@ plugins.each do |p|
   link "/etc/munin/plugins/#{p}" do
     to "/usr/share/munin/plugins/#{p}"
     link_type :symbolic
+    only_if "test ! -h /etc/munin/plugins/#{p}"
     notifies :restart, resources(:service => "munin-node")
   end
 end
