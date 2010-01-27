@@ -1,0 +1,6 @@
+<IfModule mod_passenger.c>
+  PassengerRoot "<%= @configuration[:passengerroot] %>"
+  PassengerRuby "<%= @configuration[:passengerruby] %>"
+  PassengerMaxPoolSize "<%= @configuration[:passengermaxpoolsize] %>"         
+  PassengerMaxRequests "<%= @configuration[:passengermaxrequests] %>"
+</IfModule>

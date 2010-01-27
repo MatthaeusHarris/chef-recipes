@@ -1,0 +1,5 @@
+  default[:passenger][:compiled][:passengerroot]="/usr/lib/ruby/gems/1.8/passenger-#{passenger[:version]}"
+  default[:passenger][:compiled][:passengerruby]="/usr/bin/ruby"
+  default[:passenger][:compiled][:gem_path] = "/usr/bin/gem"
+  default[:passenger][:compiled][:install_binary]="/usr/bin/passenger-install-apache2-module"
+  default[:passenger][:compiled][:module]="/usr/lib/ruby/gems/1.8/gems/passenger-#{passenger[:version]}/ext/apache2/mod_passenger.so"
