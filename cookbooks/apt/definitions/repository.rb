@@ -9,7 +9,7 @@ define :repository do
 
 
   remote_file "/etc/apt/sources.list.d/#{params[:name]}.list" do
-    params[:config_url] ? source params[:config_url] : source params[:name]
+    params[:config_url] ? (source params[:config_url]) : (source params[:name])
     owner "root"
     group "root"
     mode "0644"
