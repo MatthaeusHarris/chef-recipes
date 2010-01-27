@@ -28,17 +28,20 @@ if not File.exists?(node[:sphinx][:path])
   remote_file node[:sphinx][:tar_file] do
     source node[:sphinx][:url]
     mode "0755"
+    checksum node[:sphinx][:tar_file_checksum]
   end
 
   remote_file "#{node[:sphinx][:src_path]}/libstemmer_c.tgz" do
     source "http://snowball.tartarus.org/dist/libstemmer_c.tgz"
     mode "0755"
+    checksum "b642b8921915128bd95c99d302d33701cba8b5afbda81b762c118cbadfb7670f"
   end
 
   script "install_sphinx" do
     interpreter "bash"
     user "root"
     cwd node[:sphinx][:src_path]
+    not_if "test -f /usr/local/bin/searchd"
     code <<-EOH
     tar -xvf #{node[:sphinx][:tar_file]}
     cd  #{node[:sphinx][:version]}
@@ -47,5 +50,5 @@ if not File.exists?(node[:sphinx][:path])
     make
     make install
     EOH
-    end
+   end
 end
