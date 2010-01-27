@@ -25,7 +25,6 @@ packages.each do |p|
   end
 end
 
-
 directory "/etc/monit/conf.d" do
   owner "root"
   group "root"
@@ -49,10 +48,12 @@ source "monit"
 end
 
 service "monit" do
-# By default, the init provider is used, which runs /etc/init.d/service_name with _command.
+  # By default, the init provider is used, which runs /etc/init.d/service_name with _command.
   supports :restart => true
-  action :start
+  enabled true
+  running true
 end
+
 
 monit_files = %w{ disk-space email-alerts general }
 
@@ -65,4 +66,5 @@ monit_files.each do |f|
     notifies :restart, resources(:service => "monit")
   end
 end
+
 
