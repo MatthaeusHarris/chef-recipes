@@ -27,11 +27,15 @@ packages.each do |p|
 end
 
 service "denyhosts" do
-  supports :restart => true
+# By default, the init provider is used, which runs /etc/init.d/service_name with _command.
+  supports :restart => true, :reload => true
+  enabled true
+  running true
 end
 
-service "sshd" do
+service "ssh" do
   supports :reload => true
+  running true
 end
 
 remote_file "/usr/local/sbin/unban-ip" do
@@ -41,13 +45,12 @@ remote_file "/usr/local/sbin/unban-ip" do
   group "root"
 end
 
-
 remote_file "/etc/denyhosts.conf" do
   source "denyhosts.conf"
     mode "0644"
     owner "root"
     group "root"
-  notifies :restart, resources(:service => "sshd")
+  notifies :restart, resources(:service => "denyhosts")
 end
 
 remote_file "/etc/ssh/sshd_config" do
@@ -55,11 +58,5 @@ remote_file "/etc/ssh/sshd_config" do
   mode "0644"
   owner "root"
   group "root"
-  notifies :reload, resources(:service => "sshd")
-end
-
-service "denyhosts" do
-# By default, the init provider is used, which runs /etc/init.d/service_name with _command.
-  supports :restart => true, :reload => true
-  action :restart
+  notifies :reload, resources(:service => "ssh")
 end
