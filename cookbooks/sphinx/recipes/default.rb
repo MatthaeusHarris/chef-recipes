@@ -17,12 +17,12 @@
 # limitations under the License.
 #
 
-if not File.exists?(node[:sphinx][:path])
   directory node[:sphinx][:src_path] do
     owner "root"
     group "root"
     mode "0755"
     action :create
+    only_if do File.exists?(node[:sphinx][:path])
   end
 
   remote_file node[:sphinx][:tar_file] do
