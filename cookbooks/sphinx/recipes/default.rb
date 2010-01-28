@@ -22,7 +22,7 @@
     group "root"
     mode "0755"
     action :create
-    only_if do File.exists?(node[:sphinx][:path])
+    not_if do File.exists?(node[:sphinx][:path])
   end
 
   remote_file node[:sphinx][:tar_file] do
