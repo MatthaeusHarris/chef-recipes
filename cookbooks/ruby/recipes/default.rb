@@ -18,6 +18,7 @@
 #
 
 
+execute "apt-get update"
 
 packages = %w{ ruby ruby1.8-dev libxml-ruby }
 
