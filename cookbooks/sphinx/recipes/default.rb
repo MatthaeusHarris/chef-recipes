@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+package "libmysqlclient15-dev"
+
 directory node[:sphinx][:src_path] do
   owner "root"
   group "root"
