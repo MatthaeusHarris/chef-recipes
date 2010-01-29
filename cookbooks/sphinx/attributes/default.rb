@@ -1,5 +1,5 @@
 set[:sphinx][:version]="sphinx-0.9.8.1"
-set[:sphinx][:url]="http://www.sphinxsearch.com/downloads/sphinx-0.9.8.1.tar.gz"
+set[:sphinx][:url]="http://www.sphinxsearch.com/downloads/#{sphinx[:version]}.tar.gz"
 set[:sphinx][:path]="/opt/#{sphinx[:version]}"
 set[:sphinx][:src_path]="/opt/src"
 set[:sphinx][:tar_file]="#{sphinx[:src_path]}/#{sphinx[:version]}.tar.gz"
