@@ -3,3 +3,5 @@ if File.exists?(ree[:path]) && File.directory?(ree[:path]) # If rubyee is instal
 else
   set[:gems][:binary]="/usr/bin/gem"
 end
+
+default[:gems][:packages]=%w( mysql )

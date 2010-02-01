@@ -19,9 +19,7 @@
 
 include_recipe 'gems::gem_dependencies'
 
-packages = %w{ mysql }
-
-packages.each do |p|
+node[:gems][:packages].each do |p|
   gem_package p do
     gem_binary node[:gems][:binary]
     action :install
