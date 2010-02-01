@@ -19,6 +19,14 @@
 
 include_recipe 'gems::gem_dependencies'
 
+execute "gem-sources" do
+  command "gem sources -a http://gems.github.com"
+  user "root"
+  create "/var/tmp/gem-sources"
+end
+
+file "/var/tmp/gem-sources"
+
 node[:gems][:packages].each do |p|
   gem_package p do
     gem_binary node[:gems][:binary]
