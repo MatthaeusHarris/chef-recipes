@@ -21,11 +21,12 @@ node[:railssites].each do |appname, appvalues|
   railssite appname do
     site_options appvalues
   end
+
   appvalues[:config_files].each do |f|
-    remote_file "/home/#{appname}/app/shared/config/#{f}" do
+    remote_file "/home/#{appvalues[:user]}/app/shared/config/#{f}" do
       source "#{appname}/#{f}"
-      owner appname
-      group appname
+      owner appvalues[:user]
+      group appvalues[:user]
       mode "0644"
     end
   end
