@@ -1,14 +1,14 @@
 include_recipe 'passenger::passenger-dependencies'
+
 gem_package "passenger" do
   gem_binary node[:passenger][:enterprise][:gem_path]
-  action :install
   version node[:passenger][:version]
 end
 
 execute "install-passenger" do
   command "#{node[:passenger][:enterprise][:install_binary]} -a"
   not_if "test -f #{node[:passenger][:enterprise][:module]}"
-  end
+end
 
 template "#{node[:apache][:dir]}/mods-available/passenger.load" do
   source "mods/passenger.load.erb"
