@@ -17,9 +17,14 @@
 # limitations under the License.
 #
 
-define :apache_conf do
+define :apache_conf, :conf_options => { } do
+  options=params[:conf_options]
   template "#{node[:apache][:dir]}/mods-available/#{params[:name]}.conf" do
     source "mods/#{params[:name]}.conf.erb"
+    owner "root"
+    group "root"
+    mode "0644"
     notifies :restart, resources(:service => "apache2")
+    variables( :configuration => options )
   end
 end
