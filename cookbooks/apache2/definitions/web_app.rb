@@ -43,38 +43,6 @@ define :web_app, :template => "web_app.conf.erb" do
     end
   end
 
-  if params[:ssl]
-
-    include_recipe "apache2::mod_ssl"
-
-    directory "/etc/apache2/ssl" do
-      owner "root"
-      group "root"
-      mode "0755"
-      action :create
-      not_if "test -d /etc/apache2/ssl"
-    end
-
-    remote_file "/etc/apache2/ssl/server.crt" do
-      source "server.crt"
-      owner "root"
-      group "root"
-      mode "0644"
-    end
-
-    remote_file "/etc/apache2/ssl/server.key" do
-      source "server.key"
-      owner "root"
-      group "root"
-      mode "0644"
-    end
-
-    if params[:certificatechainfile]
-      remote_file "/etc/apache2/ssl/caauthority.crt" do
-        source "caauthority.crt"
-      end
-    end
-  end
 
   apache_site "#{params[:name]}.conf" do
     enable enable_setting
