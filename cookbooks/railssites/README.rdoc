@@ -17,6 +17,7 @@ Each application is part of the Mash [:railssites] with the following attributes
      * dbuser: database user.
      * dbpass: database password.
      * dbhost: database host. This four attributes are used to create database.yml
+     * includes: set true to indicate that there is a  file with some apache custom code such us rewrite rules.
      * ssl: set to true if you want ssl support
      * certificatechainfile: set to true if your ssl config needs a certificate chain file
      * config_files: an array of additional configuration files for the app.
@@ -39,6 +40,10 @@ add the .crt file to files/default/ as caauthority.crt
 
 * There's also another recipe that can be used to install crontabs, you have 
 to add the crontab as a File resource with the following sintaxis appname.crontab
+
+== Includes
+
+* When setting include attribute to true and adding a file with the syntax appname.conf the recipe copies this file to a directory and include the file in the virtualhost.
 
 = LICENSE & AUTHOR:
 

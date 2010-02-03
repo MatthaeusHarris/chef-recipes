@@ -25,6 +25,7 @@ node[:railssites].each do |appname,params|
     group "root"
     mode "0644"
     notifies :reload, resources(:service => "cron")
+    only_if do params[:crontab] end
   end
 end
 

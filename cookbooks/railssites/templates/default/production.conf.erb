@@ -1,28 +1,12 @@
-<Virtualhost *:80>
-  ServerName <%= @params[:server_name] %>
-  ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
-
-  RedirectMatch (.*) https://<%= @params[:server_name] %>$1
-
-</Virtualhost>
-
-<VirtualHost _default_:443>
+<VirtualHost *:80>
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
-  SSLEngine On
-  SSLCertificateFile /etc/apache2/ssl/server.crt
-  SSLCertificateKeyFile /etc/apache2/ssl/server.key
-
-<% if @params[:certificatechainfile] -%>
-  SSLCertificateChainFile /etc/apache2/ssl/caauthority.crt
-<% end -%>
-
-  RequestHeader set X_FORWARDED_PROTO 'https'
-
   RailsBaseURI /
   RailsEnv <%= @params[:rails_env] %>
+#  Todo-set this variable
+#  PassengerMaxPoolSize <%#= @node[:apache2][:passenger_max_pool_size] %>
 
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
@@ -30,7 +14,6 @@
     Order allow,deny
     Allow from all
   </Directory>
-
 
   RewriteEngine On
   RewriteLog <%= @node[:apache][:log_dir] %>/<%= @application_name %>-rewrite.log
@@ -40,8 +23,11 @@
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
 
+  <% if @params[:includes] %>
+    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
+  <% end %>
+
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
   CustomLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-access.log combined
 </VirtualHost>
-
