@@ -16,11 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-define :apache_module, :enable => true, :conf => false do
+define :apache_module, :enable => true, :conf => false, :module_options => { } do
   include_recipe "apache2"
 
+  module_options=params[:module_options]
+
   if params[:conf]
-    apache_conf params[:name]
+    apache_conf params[:name] do
+      conf_options module_options
+    end
   end
 
   if params[:enable]
