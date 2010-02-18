@@ -72,4 +72,5 @@ define :staticsite, :site_options => { } do
       notifies :reload, resources(:service => "cron")
       only_if do params[:crontab] end
     end
+  end
 end
