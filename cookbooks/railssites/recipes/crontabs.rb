@@ -12,12 +12,6 @@
 #   end
 # end
 
-service "cron" do
-  action :nothing
-  supports :reload => true
-end
-
-
 node[:railssites].each do |appname,params|
   remote_file "/etc/cron.d/#{appname}" do
     source "#{appname}.crontab"
@@ -25,7 +19,7 @@ node[:railssites].each do |appname,params|
     group "root"
     mode "0644"
     notifies :reload, resources(:service => "cron")
-    only_if do params[:crontab] end
+    only_if do params[:crontabs] end
   end
 end
 
