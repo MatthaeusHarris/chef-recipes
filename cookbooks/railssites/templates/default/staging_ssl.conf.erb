@@ -27,14 +27,14 @@
   RailsEnv <%= @params[:rails_env] %>
   <% end %>
 
-  <Directory <%= @params[:docroot] %>
+  <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
     AllowOverride None
     Order allow,deny
     Allow from all
 
     AuthType Basic
-    AuthName <%= @params[:name] =>
+    AuthName <%= @params[:name] =%>
     AuthUserFile /etc/apache2/passwords
     Require valid-user 
   </Directory>

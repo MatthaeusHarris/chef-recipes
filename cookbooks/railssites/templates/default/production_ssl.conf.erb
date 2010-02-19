@@ -26,7 +26,7 @@
     RailsEnv <%= @params[:rails_env] %>
   <% end %>
 
-  <Directory <%= @params[:docroot] %>
+  <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
     AllowOverride None
     Order allow,deny
