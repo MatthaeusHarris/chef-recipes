@@ -34,7 +34,7 @@
   RewriteRule ^.*$ /system/maintenance.html [L]
 
   <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
+    Include /etc/apache2/conf.d/<%= @params[:name] %>.conf
   <% end %>
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log

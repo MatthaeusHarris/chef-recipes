@@ -15,9 +15,9 @@
   SSLCertificateFile /etc/apache2/ssl/server.crt
   SSLCertificateKeyFile /etc/apache2/ssl/server.key
 
-<% if @params[:certificatechainfile] -%>
+<% if @params[:certificatechainfile] %>
   SSLCertificateChainFile /etc/apache2/ssl/caauthority.crt
-<% end -%>
+<% end %>
 
   RequestHeader set X_FORWARDED_PROTO 'https'
 
