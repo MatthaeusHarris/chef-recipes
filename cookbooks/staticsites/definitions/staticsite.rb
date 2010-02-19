@@ -57,7 +57,6 @@ define :staticsite, :site_options => { } do
     docroot "/home/#{site_options[:user]}/app/current/public"
     template "#{site_options[:type]}.conf.erb"
     cookbook "railssites"
-    rails_env "production"
     server_name site_options[:server_name]
     server_aliases [ params[:name], node[:hostname] ] + site_options[:server_aliases]
     ssl site_options[:type].to_s.scan("ssl").to_s

@@ -3,8 +3,11 @@
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
-  RailsBaseURI /
-  RailsEnv <%= @params[:rails_env] %>
+<% if @params[:rails_env] %>   
+   RailsBaseURI /
+   RailsEnv <%= @params[:rails_env] %>
+<% end %>
+
 #  Todo-set this variable
 #  PassengerMaxPoolSize <%#= @node[:apache2][:passenger_max_pool_size] %>
 

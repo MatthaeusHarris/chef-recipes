@@ -21,8 +21,11 @@
 
   RequestHeader set X_FORWARDED_PROTO 'https'
 
-  RailsBaseURI /
+
+  <% if @params[:rails_env] %>   
+  RailsBaseURI /            
   RailsEnv <%= @params[:rails_env] %>
+  <% end %>
 
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
