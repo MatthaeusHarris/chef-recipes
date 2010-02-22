@@ -2,8 +2,6 @@
   ServerName <%= @params[:server_name] %>
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
 
-  RedirectMatch (.*) https://<%= @params[:server_name] %>$1
-
 </Virtualhost>
 
 <VirtualHost _default_:443>
