@@ -36,6 +36,7 @@ end
 service "ssh" do
   supports :reload => true
   running true
+  pattern "sshd"
 end
 
 remote_file "/usr/local/sbin/unban-ip" do
