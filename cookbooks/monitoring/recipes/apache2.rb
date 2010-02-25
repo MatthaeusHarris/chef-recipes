@@ -1,6 +1,6 @@
 include_recipe 'monitoring'
 
-template "/etc/monit/conf.d/apache2.monitrc" do
+template "/etc/monit/conf.d/apache.monitrc" do
   source "apache2.erb"
   owner "root"
   group "root"
