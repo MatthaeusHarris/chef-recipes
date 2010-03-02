@@ -9,7 +9,7 @@
   <% end %>
 
   <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name]-includes =%>.conf
+    Include /etc/apache2/sites-conf/<%= @params[:name]-includes =%>.conf
   <% end %>
 
   <Directory <%= @params[:docroot] %>>
@@ -50,6 +50,10 @@
   SSLCertificateChainFile /etc/apache2/ssl/caauthority.crt
 <% end %>
 
+<% if @params[:includes] %>
+   Include /etc/apache2/sites-conf/<%= @params[:name]-includes =%>.conf
+<% end %>
+
   RequestHeader set X_FORWARDED_PROTO 'https'
 
 
@@ -78,10 +82,6 @@
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
-
-  <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name]-includes =%>.conf
-  <% end %>
 
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log

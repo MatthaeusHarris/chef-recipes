@@ -22,7 +22,7 @@
   RequestHeader set X_FORWARDED_PROTO 'https'
 
   <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
+    Include /etc/apache2/sites-conf/<%= @params[:name] =%>.conf
   <% end %>
 
   <% if @params[:rails_env] %>   
