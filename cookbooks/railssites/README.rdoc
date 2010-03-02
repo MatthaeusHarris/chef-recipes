@@ -43,7 +43,7 @@ to add the crontab as a File resource with the following sintaxis appname.cronta
 
 == Includes
 
-* When setting include attribute to true and adding a file with the syntax appname.conf the recipe copies this file to a directory and include the file in the virtualhost.
+* When setting include attribute to true and adding a file with the syntax appname-includes.conf the recipe copies this file to a directory and include the file in the virtualhost.
 
 = LICENSE & AUTHOR:
 
