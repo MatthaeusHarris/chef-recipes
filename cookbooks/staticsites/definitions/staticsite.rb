@@ -9,7 +9,15 @@ define :staticsite, :site_options => { } do
     only_if do site_options[:type].to_s.include?("staging") end
   end
 
-  remote_file "/etc/apache2/conf.d/#{params[:name]}.conf" do
+  directory "/etc/apache2/sites-conf/" do
+    owner "root"
+    group "root"
+    mode "0644"
+    only_if do site_options[:includes] end
+    not_if "test -d /etc/apache2/sites-conf"
+  end
+
+  remote_file "/etc/apache2/sites-conf/#{params[:name]}.conf" do
     source "#{params[:name]}/#{params[:name]}-includes.conf"
     owner "root"
     group "root"
