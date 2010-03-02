@@ -21,6 +21,10 @@
 
   RequestHeader set X_FORWARDED_PROTO 'https'
 
+  <% if @params[:includes] %>
+    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
+  <% end %>
+
   <% if @params[:rails_env] %>   
     RailsBaseURI /
     RailsEnv <%= @params[:rails_env] %>
@@ -41,10 +45,6 @@
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
-
-  <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
-  <% end %>
 
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log

@@ -3,10 +3,14 @@
   ServerAlias <% @params[:server_aliases].each do |a| %><%= "#{a}" %> <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
-<% if @params[:rails_env] %>   
-   RailsBaseURI /
-   RailsEnv <%= @params[:rails_env] %>
-<% end %>
+  <% if @params[:includes] %>
+    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
+  <% end %>
+
+  <% if @params[:rails_env] %>   
+     RailsBaseURI /
+     RailsEnv <%= @params[:rails_env] %>
+  <% end %>
 
 #  Todo-set this variable
 #  PassengerMaxPoolSize <%#= @node[:apache2][:passenger_max_pool_size] %>
@@ -25,10 +29,6 @@
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
-
-  <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name] =%>.conf
-  <% end %>
 
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log

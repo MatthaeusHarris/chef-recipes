@@ -8,6 +8,10 @@
   RailsEnv <%= @params[:rails_env] %>
   <% end %>
 
+  <% if @params[:includes] %>
+    Include /etc/apache2/conf.d/<%= @params[:name]-includes =%>.conf
+  <% end %>
+
   <Directory <%= @params[:docroot] %>>
     Options FollowSymLinks
     AllowOverride None
@@ -27,10 +31,6 @@
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
-
-  <% if @params[:includes] %>
-    Include /etc/apache2/conf.d/<%= @params[:name]-includes =%>.conf
-  <% end %>
 
   LogLevel info
   ErrorLog <%= @node[:apache][:log_dir] %>/<%= @params[:name] %>-error.log
