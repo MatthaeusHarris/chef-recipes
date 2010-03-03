@@ -1,7 +1,7 @@
 include_recipe 'monitoring'
 
 node[:monit][:sphinx].each do |appname|
-  template "/etc/monit/conf.d/sphinx-#{appname}" do
+  template "/etc/monit/conf.d/sphinx-#{appname}.monitrc" do
     source "sphinx.erb"
     owner "root"
     group "root"
