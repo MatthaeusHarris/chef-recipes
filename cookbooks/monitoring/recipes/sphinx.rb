@@ -6,7 +6,7 @@ node[:monit][:sphinx].each do |appname|
     owner "root"
     group "root"
     mode 0644
-    variables ( :appname => appname )
+    variables :appname => appname
     notifies :restart, resources(:service => "monit")
   end
 end
