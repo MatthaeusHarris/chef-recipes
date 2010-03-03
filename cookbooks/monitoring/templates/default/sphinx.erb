@@ -1,0 +1,10 @@
+check process sphinx-<%= @node[:appname] %> with pidfile /home/<%= @node[:appname] %>/shared/log/searchd.production.pid
+  group searchd
+ start program = "/usr/local/bin/searchd -c /home/<%= @node[:appname] %>/current/config/production.sphinx.conf"
+    as uid <%= @node[:appname] %> and gid <%= @node[:appname] %>
+  stop program = "/usr/local/bin/searchd --stop -c /home/<%= @node[:appname] %>/current/config/production.sphinx.conf"
+    as uid <%= @node[:appname] %> and gid <%= @node[:appname] %>
+
+  if mem > 100 Mb for 3 cycles then restart
+  if cpu > 80% for 5 cycles then restart
+  if 20 restarts within 20 cycles then timeout
