@@ -1,8 +1,8 @@
-check process sphinx-<%= @appname %> with pidfile /home/<%= @appname %>/shared/log/searchd.production.pid
+check process sphinx-<%= @appname %> with pidfile /home/<%= @appname %>/app/shared/log/searchd.production.pid
   group searchd
- start program = "/usr/local/bin/searchd -c /home/<%= @appname %>/current/config/production.sphinx.conf"
+ start program = "/usr/local/bin/searchd -c /home/<%= @appname %>/app/current/config/production.sphinx.conf"
     as uid <%= @appname %> and gid <%= @appname %>
-  stop program = "/usr/local/bin/searchd --stop -c /home/<%= @appname %>/current/config/production.sphinx.conf"
+  stop program = "/usr/local/bin/searchd --stop -c /home/<%= @appname %>/app/current/config/production.sphinx.conf"
     as uid <%= @appname %> and gid <%= @appname %>
 
   if mem > 100 Mb for 3 cycles then restart
