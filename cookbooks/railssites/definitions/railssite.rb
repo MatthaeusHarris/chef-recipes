@@ -23,6 +23,7 @@ define :railssite, :site_options => { } do
     group "root"
     mode "0644"
     only_if do site_options[:includes] end
+    notifies :reload, resources(:service => "apache2")
   end
 
   if site_options[:type].to_s.include?("ssl")
