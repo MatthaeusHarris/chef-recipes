@@ -105,11 +105,10 @@ define :railssite, :site_options => { } do
     variables ( { :dbname => site_options[:dbname], :dbuser => site_options[:dbuser], :dbpasswd => site_options[:dbpasswd], :dbhost => site_options[:dbhost] } )
   end
 
-  #  "create_database"
-#  execute "create-database" do
-#    command "mysqladmin -h #{site_options[:dbhost]} -u #{site_options[:dbuser]} -p#{site_options[:dbpasswd]} create #{site_options[:dbname]}"
-#    creates "/var/tmp/#{site_options[:user]}-#{site_options[:dbname]}"
-#  end
+  execute "create-database" do
+    command "mysqladmin -h #{site_options[:dbhost]} -u #{site_options[:dbuser]} -p#{site_options[:dbpasswd]} create #{site_options[:dbname]}"
+    creates "/var/tmp/#{site_options[:user]}-#{site_options[:dbname]}"
+  end
 
   file "/var/tmp/#{site_options[:user]}-#{site_options[:dbname]}" do
     action :create
