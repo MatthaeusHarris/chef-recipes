@@ -27,6 +27,11 @@ end
 
 file "/var/tmp/gem-sources"
 
+execute "gem-update" do
+  command "gem update --system"
+  user "root"
+end
+
 node[:gems][:packages].each do |p|
   gem_package p do
     gem_binary node[:gems][:binary]
