@@ -59,5 +59,5 @@ remote_file "/etc/ssh/sshd_config" do
   mode "0644"
   owner "root"
   group "root"
-  notifies :reload, resources(:service => "ssh")
+  notifies :restart, resources(:service => "ssh")
 end
