@@ -4,4 +4,4 @@ else
   set[:gems][:binary]="/usr/bin/gem"
 end
 
-default[:gems][:packages]=%w( mysql )
+default[:gems][:packages]=%w( mysql bundler )
