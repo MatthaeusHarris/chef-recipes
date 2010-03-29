@@ -29,4 +29,4 @@ host_name <%= @node[:fqdn] %>
 # doesn't understand CIDR-style network notation.  You may repeat
 # the allow line as many times as you'd like
 
-allow <% @node[:monitoring][:muninmaster] %>
+allow <%= @node[:monitoring][:muninmaster] %>
