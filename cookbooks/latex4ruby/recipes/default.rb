@@ -17,6 +17,6 @@
 # limitations under the License.
 #
 
-node[:latex][:pacakges].each do |p|
+node[:latex][:packages].each do |p|
   package p
 end
