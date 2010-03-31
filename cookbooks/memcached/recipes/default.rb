@@ -42,3 +42,4 @@ template "/etc/memcached.conf" do
   )
   notifies :restart, resources(:service => "memcached"), :immediately
 end
+
