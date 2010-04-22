@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: apache2
-# Recipe:: expires 
+# Recipe:: expires
 #
 # Copyright 2008-2009, Opscode, Inc.
 #
@@ -17,4 +17,6 @@
 # limitations under the License.
 #
 
-apache_module "expires"
+apache_module "expires" do
+  conf true
+end
