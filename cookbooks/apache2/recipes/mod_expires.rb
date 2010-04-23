@@ -19,4 +19,5 @@
 
 apache_module "expires" do
   conf true
+  enable true
 end
