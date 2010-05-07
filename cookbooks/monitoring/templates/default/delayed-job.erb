@@ -1,0 +1,12 @@
+check process delayed_job_<%= @appname %>_<%= @job %> with pidfile /home/<%= @appname %>/app/shared/pids/delayed_job.<%= @job %>.pid
+  group delayed_job_<%= @appname %>
+ start program = "/usr/bin/env RAILS_ENV=production /home/<%= @appname %>/app/current/script/delayed_job start -i <%= @job %>"
+    as uid <%= @appname %> and gid <%= @appname %>
+ stop program = "/usr/bin/env RAILS_ENV=production /home/<%= @appname %>/app/current/script/delayed_job stop -i <%= @job %>"
+    as uid <%= @appname %> and gid <%= @appname %>
+
+  if mem > 100 Mb for 3 cycles then restart
+  if cpu > 80% for 5 cycles then restart
+  if 20 restarts within 20 cycles then timeout
+
+
