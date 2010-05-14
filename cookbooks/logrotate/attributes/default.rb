@@ -1,0 +1,1 @@
+set[:logroteate][:services]=%w()

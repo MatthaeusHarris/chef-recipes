@@ -1,0 +1,15 @@
+= DESCRIPTION:
+
+Logrotate file
+
+= REQUIREMENTS:
+
+Nothing special
+
+= ATTRIBUTES: 
+
+:services is an array of services that are included in the rotation.
+
+= USAGE:
+
+Just set the services you want to be rotated in the attributes and add a file containing the logrotate config for each service in files/
