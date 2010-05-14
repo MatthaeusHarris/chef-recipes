@@ -4,4 +4,4 @@ else
   set[:gems][:binary]="/usr/bin/gem"
 end
 
-default[:gems][:packages]=%w( mysql bundler )
+default[:gems][:packages]=%w( mysql bundler newrelic_rpm )
