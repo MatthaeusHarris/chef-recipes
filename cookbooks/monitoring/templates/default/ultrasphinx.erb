@@ -1,0 +1,10 @@
+check process sphinx-<%= @appname %> with pidfile /home/<%= @appname %>/app/shared/pids/searchd.pid
+  group searchd
+ start program = "/usr/local/bin/searchd -c /home/<%= @appname %>/app/current/config/ultrasphinx/production.conf"
+    as uid <%= @appname %> and gid <%= @appname %>
+  stop program = "/usr/local/bin/searchd --stop -c /home/<%= @appname %>/app/current/config/ultrasphinx/production.conf"
+    as uid <%= @appname %> and gid <%= @appname %>
+
+  if mem > 100 Mb for 3 cycles then restart
+  if cpu > 80% for 5 cycles then restart
+  if 20 restarts within 20 cycles then timeout

@@ -1,1 +1,1 @@
-default[:monit][:sphinx][:wadus]
+default[:monit][:sphinx]=[]

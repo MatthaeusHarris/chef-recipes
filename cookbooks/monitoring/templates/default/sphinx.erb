@@ -1,3 +1,4 @@
+
 check process sphinx-<%= @appname %> with pidfile /home/<%= @appname %>/app/shared/log/searchd.production.pid
   group searchd
  start program = "/usr/local/bin/searchd -c /home/<%= @appname %>/app/current/config/production.sphinx.conf"
