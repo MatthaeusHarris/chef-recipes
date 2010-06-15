@@ -23,7 +23,7 @@ extra = %w{ passenger_memory passenger_stats }
 extra.each do |p|
   remote_file "/usr/share/munin/plugins/#{p}" do
     source p
-    mode "0644"
+    mode "0755"
   end
 end
 
