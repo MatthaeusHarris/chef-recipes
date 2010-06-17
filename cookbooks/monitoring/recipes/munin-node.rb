@@ -1,4 +1,6 @@
 
+package "libwww-perl"
+
 package "munin-node" do
   action :install
 end
@@ -13,6 +15,14 @@ end
 template "/etc/munin/munin-node.conf" do
   source "munin-node.erb"
   mode "0644"
+  owner "root"
+  group "root"
+  notifies :restart, resources(:service => "munin-node")
+end
+
+template "/etc/munin/plugin-conf.d/munin-node" do
+  source "munin-node-plugin.conf.erb"
+  mode "0600"
   owner "root"
   group "root"
   notifies :restart, resources(:service => "munin-node")
