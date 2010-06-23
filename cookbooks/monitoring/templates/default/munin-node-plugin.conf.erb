@@ -47,10 +47,11 @@ user nobody
 [ip_*]
 user root
 
+<% if @node[:app] %>
 [mysql*]
 user root
 env.mysqlopts -u <%= @node[:app][@node[:app].keys.first.to_sym][:dbuser] %> -p<%= @node[:app][@node[:app].keys.first.to_sym][:dbpasswd] %> -h <%= @node[:app][@node[:app].keys.first.to_sym][:dbhost] %>
-
+<% end %>
 [passenger_*]
 user root
 
