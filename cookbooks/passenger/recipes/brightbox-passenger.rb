@@ -1,6 +1,7 @@
 include_recipe 'apt::brightbox-main'
 package "libapache2-mod-passenger" do
-  action :install
+  action :upgrade
+  version node[:passenger][:version]
   only_if do
     node[:platform].eql?("ubuntu") && node[:platform_version].eql?("8.04") && node[:languages][:ruby][:target_cpu].eql?("i486")
   end
