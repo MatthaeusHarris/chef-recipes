@@ -5,6 +5,8 @@
 # Ruby Requires
 require 'rubygems'
 require 'fileutils'
+require 'etc'
+require 'yaml'
 
 # Configuration
 config_file='/etc/backups/backups.yml'
@@ -17,7 +19,7 @@ end
 def make_dir(path,user)
   unless File.directory?(path)
     FileUtils.mkdir_p(path)
-    FileUtils.chown(user,user,path)
+    FileUtils.chown(user,user,path) if Etc.getpwnam(user) rescue nil
   end
 end
 
@@ -40,7 +42,7 @@ def db_backup(config)
           mysql_command="mysqldump -u #{mysql_user} -p#{mysql_pass} #{db} | gzip > #{latest}"
           mysql_result=`#{mysql_command}`
           puts mysql_result
-          FileUtils.chown(project,project,latest)
+          FileUtils.chown(project,project,latest)  if Etc.getpwnam(user) rescue nil
           FileUtils.cp(latest,"#{date}.gz")
           s3_put_command="s3cmd -c /etc/s3cfg put #{date}.gz s3://#{$s3_backup_bucket}/projects/#{project}/dbdumps/#{db}/#{date}.gz"
           s3_result=`#{s3_put_command}`
@@ -69,7 +71,7 @@ def dir_backup(config)
             duplicity_remote_command=config['duplicity_command'] + "--allow-source-mismatch " + "#{dir} s3+http://#{s3_backup_path}"
             duplicity_local_result=`#{duplicity_local_command}`
             puts duplicity_local_result
-            FileUtils.chown_R(project,project,files_home_path)
+            FileUtils.chown_R(project,project,files_home_path)  if Etc.getpwnam(user) rescue nil
             duplicity_remote_result=`#{duplicity_remote_command}`
             puts duplicity_remote_result
           end
