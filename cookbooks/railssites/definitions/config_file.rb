@@ -15,8 +15,8 @@ define :config_file, :options => { } do
   options[:config_files].each do |f|
     remote_file "/home/#{options[:user]}/app/shared/config/#{f}" do
       source f
-      owner appname
-      group appname
+      owner options[:user]
+      group options[:user]
       mode "0644"
     end
   end
