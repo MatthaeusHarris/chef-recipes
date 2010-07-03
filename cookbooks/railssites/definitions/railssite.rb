@@ -62,9 +62,21 @@ define :railssite, :site_options => { } do
     end
   end
 
+  app_user_options = { :user => site_options[:user], :password => site_options[:password], :ssh_keys => site_options[:ssh_keys] }
+  app_user site_options[:user] do
+    site_options app_user_options
+  end
+
+  if site_options[:cookbook]
+    cb=params[:cookbook]
+  else
+    cb="railssites"
+  end
+
   web_app params[:name] do
     docroot "/home/#{site_options[:user]}/app/current/public"
     template "#{site_options[:type]}.conf.erb"
+    cookbook cb
     server_name site_options[:server_name]
     server_aliases [ params[:name], node[:hostname] ] + site_options[:server_aliases]
     rails_env "production"
@@ -99,6 +111,7 @@ define :railssite, :site_options => { } do
 
   template "/home/#{site_options[:user]}/app/shared/config/database.yml" do
     source "database.yml.erb"
+    cookbook "railssites"
     owner site_options[:user]
     group site_options[:user]
     mode "0664"
@@ -106,11 +119,36 @@ define :railssite, :site_options => { } do
   end
 
   execute "create-database" do
-    command "mysqladmin -h #{site_options[:dbhost]} -u #{site_options[:dbuser]} -p#{site_options[:dbpasswd]} create #{site_options[:dbname]}"
-    creates "/var/tmp/#{site_options[:user]}-#{site_options[:dbname]}"
+    command "mysql -h #{site_options[:dbhost]} -u #{site_options[:dbuser]} -p#{site_options[:dbpasswd]} -e \"create database if not exists \\`#{site_options[:dbname]}\\`;\""
   end
 
-  file "/var/tmp/#{site_options[:user]}-#{site_options[:dbname]}" do
-    action :create
+  if site_options[:packages]
+    site_options[:packages].each do |p|
+      package p do
+        action :upgrade
+      end
+    end
+  end
+
+  if site_options[:gems]
+    site_options[:gems].each do |g|
+      gem_package g do
+        action :install
+      end
+    end
+  end
+
+  site_options[:config_files].each do |f|
+    config_file f do
+      options site_options
+    end
+  end
+
+  if site_options[:crontabs]
+    crontab_file params[:name] do
+      options site_options
+    end
   end
 end
+
+
