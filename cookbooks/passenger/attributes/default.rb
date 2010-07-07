@@ -1,5 +1,8 @@
 default[:passenger][:version]="2.2.14"
 default[:passenger][:passengermaxrequests]="128"
+default[:passenger][:passengerpoolidletime]="300"
+default[:passenger][:railsappspawneridletime]="600"
+
 
 mem=(memory[:total].gsub("kB","")).to_i
 case

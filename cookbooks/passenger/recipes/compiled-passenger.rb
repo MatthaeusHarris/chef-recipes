@@ -20,9 +20,7 @@ end
 
 options = {
   :passengerroot => node[:passenger][:compiled][:passengerroot],
-  :passengerruby => node[:passenger][:compiled][:passengerruby],
-  :passengermaxpoolsize => node[:passenger][:passengermaxpoolsize],
-  :passengermaxrequests => node[:passenger][:passengermaxrequests] }
+  :passengerruby => node[:passenger][:compiled][:passengerruby] }
 
 apache_module "passenger" do
   conf true

@@ -18,8 +18,7 @@ end
 options = {
   :passengerroot => node[:passenger][:brightbox][:passengerroot],
   :passengerruby => node[:passenger][:brightbox][:passengerruby],
-  :passengermaxpoolsize => node[:passenger][:passengermaxpoolsize],
-  :passengermaxrequests => node[:passenger][:passengermaxrequests] }
+ }
 
 apache_module "passenger" do
   conf true
