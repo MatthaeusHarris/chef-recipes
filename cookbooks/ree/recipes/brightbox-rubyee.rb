@@ -1,12 +1,11 @@
-  include_recipe 'apt::brightbox-rubyee'
+include_recipe 'apt::brightbox-rubyee'
 
-  package "libruby-1.8" do
+packages=%w(libruby1.8 irb1.8 libopenssl-ruby1.8 libreadline-ruby1.8 rdoc1.8 ruby1.8)
+
+packages.each do |p|
+  package p do
     action :upgrade
   end
+end
 
-  execute "install libruby1.8" do
-    command "apt-get install -y -q libruby1.8"
-    user "root"
-    action :run
-  end
 
