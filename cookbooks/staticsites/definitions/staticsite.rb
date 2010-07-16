@@ -23,6 +23,7 @@ define :staticsite, :site_options => { } do
     group "root"
     mode "0644"
     only_if do site_options[:includes] end
+    notifies :reload, resources(:service => "apache2")
   end
 
   if site_options[:type].to_s.include?("ssl")
@@ -61,6 +62,11 @@ define :staticsite, :site_options => { } do
     end
   end
 
+  app_user_options = { :user => site_options[:user], :password => site_options[:password], :ssh_keys => site_options[:ssh_keys] }
+  app_user site_options[:user] do
+    site_options app_user_options
+  end
+
   web_app params[:name] do
     docroot "/home/#{site_options[:user]}/app/current/public"
     template "#{site_options[:type]}.conf.erb"
@@ -72,14 +78,11 @@ define :staticsite, :site_options => { } do
     includes site_options[:includes]
   end
 
-  node[:railssites].each do |appname,params|
-    remote_file "/etc/cron.d/#{appname}" do
-      source "#{appname}.crontab"
-      owner "root"
-      group "root"
-      mode "0644"
-      notifies :reload, resources(:service => "cron")
-      only_if do params[:crontab] end
+  if site_options[:crontabs]
+    crontab_file params[:name] do
+      options site_options
     end
   end
 end
+
+
