@@ -11,7 +11,9 @@ define :add_keys do
     users_keys=[]
     users.each do |user|
       user_data=data_bag_item('keys_catalog',user)
-      users_keys << user_data["ssh_key"]
+      if (user_data["guest"] && user_data["servers"].include?(node[:fqdn]) || user_data["guest"].eql?(nil) || user_data["guest"]==false)
+        users_keys << user_data["ssh_key"]
+      end
     end
     keys[name] = users_keys << node[:ssh_keys][name]
     keys[name].flatten!.uniq!
