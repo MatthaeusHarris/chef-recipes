@@ -2,8 +2,12 @@ package "munin" do
   action :install
 end
 
-gem_package "domainatrix"
-
+g=gem_package "domainatrix" do
+  action :nothing
+end
+g.run_action(:install)
+require 'rubygems'
+Gem.clear_paths
 require 'domainatrix'
 
 nodes=search(:node, "network_interfaces_eth1:addresses")
