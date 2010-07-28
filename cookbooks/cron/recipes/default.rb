@@ -1,4 +1,4 @@
-# -*- coding: undecided -*-
+# -*- coding: utf-8 -*-
 #
 # Cookbook Name:: cron
 # Recipe:: default
@@ -17,6 +17,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+package "cron" do
+  action :upgrade
+end
 
 service "cron" do
   action :nothing
