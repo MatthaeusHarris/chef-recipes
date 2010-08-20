@@ -17,4 +17,3 @@ template "/etc/glusterfs/glusterfsd.vol" do
   notifies :restart, resources(:service => "glusterfs-server")
 end
 
-include_recipe "glusterfs::client"
