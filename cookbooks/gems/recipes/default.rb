@@ -32,9 +32,23 @@ execute "gem-update" do
   user "root"
 end
 
-node[:gems][:packages].each do |p|
-  gem_package p do
-    gem_binary node[:gems][:binary]
-    action :install
+# Temporary fix when running chef 0.8
+
+if node[:chef][:server_version]=~/0.8.(\d)+/
+  node[:gems][:packages].each do |p|
+    execute "gem-install" do
+      command "#{node[:gems][:binary]} install #{p} --no-rdoc --no-ri"
+      user "root"
+      creates "/var/tmp/.gem-#{p}"
+    end
+  end
+  file "/var/tmp/.gem-#{p}"
+
+else
+  node[:gems][:packages].each do |p|
+    gem_package p do
+      gem_binary node[:gems][:binary]
+      action :install
+    end
   end
 end
