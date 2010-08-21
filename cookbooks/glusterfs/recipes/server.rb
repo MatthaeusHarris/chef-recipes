@@ -1,7 +1,7 @@
 package "glusterfs-server"
 
 service "glusterfs-server" do
-  action :start
+  action :nothing
 end
 
 directory node[:glusterfs][:export_directory] do
