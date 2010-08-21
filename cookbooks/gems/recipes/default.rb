@@ -22,28 +22,21 @@ include_recipe 'gems::gem_dependencies'
 execute "gem-sources" do
   command "gem sources -a http://gems.github.com"
   user "root"
-  creates "/var/tmp/gem-sources"
+  creates "/var/tmp/.gem-sources"
 end
 
-file "/var/tmp/gem-sources"
+file "/var/tmp/.gem-sources"
 
-execute "gem-update" do
-  command "gem update --system"
-  user "root"
-end
-
-# Temporary fix when running chef 0.8
-
+# Temporary fix when running chef 0.8 (bug between chef and rubygems 1.3.7)
 if node[:chef][:server_version]=~/0.8.(\d)+/
   node[:gems][:packages].each do |p|
-    execute "gem-install" do
+    execute "gem-install #{p}" do
       command "#{node[:gems][:binary]} install #{p} --no-rdoc --no-ri"
       user "root"
       creates "/var/tmp/.gem-#{p}"
     end
+    file "/var/tmp/.gem-#{p}"
   end
-  file "/var/tmp/.gem-#{p}"
-
 else
   node[:gems][:packages].each do |p|
     gem_package p do
