@@ -1,5 +1,3 @@
-require_recipe 'users'
-
 package "sudo" do
   action :upgrade
 end
