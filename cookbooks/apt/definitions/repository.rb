@@ -22,7 +22,7 @@ include_recipe "apt"
     user "root"
     creates "/var/tmp/.add-key-#{params[:name]}"
     action :run
-    notifies :run, resources(:execute => "apt-get update")
+    notifies :run, resources(:execute => "apt-get update"), :immediately
   end
 
   file "/var/tmp/.add-key-#{params[:name]}"
