@@ -1,15 +1,11 @@
 
 package "libwww-perl"
-
-package "munin-node" do
-  action :install
-end
-
+package "munin-node"
 
 service "munin-node" do
   # By default, the init provider is used, which runs /etc/init.d/service_name with _command.
   supports :restart => true, :reload => true
-  action :restart
+  action :nothing
 end
 
 template "/etc/munin/munin-node.conf" do
@@ -34,6 +30,13 @@ extra.each do |p|
   remote_file "/usr/share/munin/plugins/#{p}" do
     source p
     mode "0755"
+  end
+
+  link "/etc/munin/plugins/#{p}" do
+    to "/usr/share/munin/plugins/#{p}"
+    link_type :symbolic
+    only_if "test ! -h /etc/munin/plugins/#{p}"
+    notifies :restart, resources(:service => "munin-node")
   end
 end
 
