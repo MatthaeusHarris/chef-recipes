@@ -11,6 +11,6 @@ when "10.04"
   dependencies=%w(libmagickcore-dev libmysqlclient-dev)
 end
 
-default[:gems][:dependencies]=%w(libxslt1-dev libxml2 libxml2-dev imagemagick libfreeimage-dev) + dependencies
-default[:gems][:packages]=%w(mysql bundler newrelic_rpm)
+set[:gems][:dependencies]=%w(libxslt1-dev libxml2 libxml2-dev imagemagick libfreeimage-dev) + dependencies
+set[:gems][:packages]=%w(mysql newrelic_rpm)
 
