@@ -17,7 +17,12 @@
 # limitations under the License.
 #
 
-package "libmysqlclient15-dev"
+case node[:platform_version]
+when "8.04"
+  package "libmysqlclient15-dev"
+when "10.04"
+  package "libmysqlclient-dev"
+end
 
 directory node[:sphinx][:src_path] do
   owner "root"
