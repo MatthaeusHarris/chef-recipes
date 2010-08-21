@@ -2,6 +2,7 @@ package "munin" do
   action :install
 end
 
+# This is a hack to be able to install and require a gem in run-time
 g=gem_package "domainatrix" do
   action :nothing
 end
