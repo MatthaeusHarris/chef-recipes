@@ -15,6 +15,7 @@ define :add_keys do
         users_keys << user_data["ssh_key"]
       end
     end
+
     keys[name] = users_keys << node[:ssh_keys][name]
     keys[name].flatten!.uniq!
   end
