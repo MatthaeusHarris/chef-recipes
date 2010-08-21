@@ -2,7 +2,7 @@
 # Cookbook Name:: apt
 # Recipe:: default
 #
-# Copyright 2008-2009, Opscode, Inc.
+# Copyright 2010, Jacobo Garcia
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,17 +17,9 @@
 # limitations under the License.
 #
 
-e = execute "apt-get update" do
-  action :nothing
+execute "apt-get update" do
+  action :run
+  creates "/var/tmp/.first-apt-get-update"
 end
 
-e.run_action(:run)
-
-%w{/var/cache/local /var/cache/local/preseeding}.each do |dirname|
-  directory dirname do
-    owner "root"
-    group "root"
-    mode  0755
-    action :create
-  end
-end
+file "/var/tmp/.first-apt-get-update"
