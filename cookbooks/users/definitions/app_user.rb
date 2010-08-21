@@ -1,5 +1,4 @@
 define :app_user, :site_options => { } do
-  include_recipe "ssh_keys"
   site_options=params[:site_options]
 
   package "libshadow-ruby1.8" do
@@ -30,6 +29,4 @@ define :app_user, :site_options => { } do
   add_keys site_options[:user] do
     conf options
   end
-
-  require_recipe "sudo"
 end

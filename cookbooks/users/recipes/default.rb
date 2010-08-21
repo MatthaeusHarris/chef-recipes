@@ -1,5 +1,3 @@
-include_recipe "ssh_keys"
-
 package "libshadow-ruby1.8" do
   action :install
 end
@@ -14,14 +12,13 @@ node[:users].each do |u, config|
     action :create
   end
 
-  if config[:group].eql? :admin
+  if config[:group].eql?(:admin)
     group "admin" do
       members [ u ]
       action :create
       append true
     end
   end
-
 
   directory "/home/#{u}/.ssh" do
     action :create
